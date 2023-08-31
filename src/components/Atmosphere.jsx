@@ -9,11 +9,21 @@ class Atmosphere extends React.Component {
         this.state = {
             rotating: false,
             angle: 0,
+			angleOffset: 0,
         };
-        this.radius = 600;
+		this.radius = 600;
         this.ref = React.createRef();
-        this.handleRotate = _.throttle(this.handleRotate.bind(this), 50);
     }
+
+	componentDidMount() {
+		document.addEventListener('mouseup', this.handleMouseUp);
+		document.addEventListener('mousemove', this.handleRotate);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('mouseup', this.handleMouseUp);
+		document.removeEventListener('mousemove', this.handleRotate);
+	}
 
     consume = (e) => {
         e.stopPropagation();
@@ -24,7 +34,7 @@ class Atmosphere extends React.Component {
 
     handleMouseDown = (e) => {
         this.consume(e);
-        this.setState({ rotating: true });
+        this.setState({ rotating: true, angleOffset: this.state.angle - this.getMouseAngle(e) });
     }
 
     handleMouseUp = (e) => {
@@ -38,17 +48,21 @@ class Atmosphere extends React.Component {
             return;
         }
 
-        const bounds = (this.ref ? this.ref.current.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
-        const centerX = bounds.left + (bounds.width / 2);
-        const centerY = bounds.top + (bounds.height / 2);
+        this.setState({ angle: this.getMouseAngle(e) + this.state.angleOffset });
+    }
+
+	getMouseAngle = (e) => {
+		const bounds = (this.ref ? this.ref.current.getBoundingClientRect() : { left: 0, top: 0 });
+        const centerX = bounds.left + bounds.width/2;
+        const centerY = bounds.top + bounds.height/2;
         const mouseX = e.pageX - (document.documentElement.scrollLeft || document.body.scrollLeft);
         const mouseY = e.pageY - (document.documentElement.scrollTop || document.body.scrollTop);
-        const angleRad = Math.atan2(mouseY - centerY, mouseX - centerX); //Math.atan2(mouseX - centerX, -(mouseY - centerY));
-        const angleDeg_ = angleRad * (180.0 / Math.PI);
+        const angleRad = Math.atan2(centerY - mouseY, mouseX - centerX); //Math.atan2(mouseX - centerX, -(mouseY - centerY));
+        const angleDeg_ = 90 - angleRad * (180.0 / Math.PI);
         const angleDeg = angleDeg_ < 0 ? 360 + angleDeg_ : angleDeg_;
 
-        this.setState({ angle: angleDeg });
-    }
+		return angleDeg;
+	}
 
     render() {
         return (
@@ -64,8 +78,6 @@ class Atmosphere extends React.Component {
                         backgroundSize: `${this.radius * 2}px ${this.radius * 2}px`,
                     }}
                     onMouseDown={this.handleMouseDown}
-                    onMouseUp={this.handleMouseUp}
-                    onMouseMove={this.handleRotate}
                     ref={this.ref}
                 ></div>
             </div>
