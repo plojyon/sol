@@ -52,7 +52,7 @@ class Atmosphere extends React.Component {
     }
 
     getMouseAngle = (e) => {
-        const bounds = (this.ref ? this.ref.current.getBoundingClientRect() : { left: 0, top: 0 });
+        const bounds = (this.ref ? this.ref.current.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
         const centerX = bounds.left + bounds.width/2;
         const centerY = bounds.top + bounds.height/2;
         const mouseX = e.pageX - (document.documentElement.scrollLeft || document.body.scrollLeft);
