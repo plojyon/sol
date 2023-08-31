@@ -12,7 +12,7 @@ class Atmosphere extends React.Component {
         };
         this.radius = 600;
         this.ref = React.createRef();
-        this.handleRotate = _.throttle(this.handleRotate.bind(this), 200);
+        this.handleRotate = _.throttle(this.handleRotate.bind(this), 50);
     }
 
     consume = (e) => {
@@ -38,16 +38,14 @@ class Atmosphere extends React.Component {
             return;
         }
 
-        const bounds = (this.ref ? this.ref.current.getBoundingClientRect() : { left: 0, top: 0 });
-        const centerX = bounds.left + this.radius;
-        const centerY = bounds.top + this.radius;
+        const bounds = (this.ref ? this.ref.current.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
+        const centerX = bounds.left + (bounds.width / 2);
+        const centerY = bounds.top + (bounds.height / 2);
         const mouseX = e.pageX - (document.documentElement.scrollLeft || document.body.scrollLeft);
         const mouseY = e.pageY - (document.documentElement.scrollTop || document.body.scrollTop);
         const angleRad = Math.atan2(mouseY - centerY, mouseX - centerX); //Math.atan2(mouseX - centerX, -(mouseY - centerY));
         const angleDeg_ = angleRad * (180.0 / Math.PI);
         const angleDeg = angleDeg_ < 0 ? 360 + angleDeg_ : angleDeg_;
-
-        console.log(mouseX, mouseY, angleDeg);
 
         this.setState({ angle: angleDeg });
     }
