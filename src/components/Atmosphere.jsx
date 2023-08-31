@@ -9,21 +9,21 @@ class Atmosphere extends React.Component {
         this.state = {
             rotating: false,
             angle: 0,
-			angleOffset: 0,
+            angleOffset: 0,
         };
-		this.radius = 600;
+        this.radius = 600;
         this.ref = React.createRef();
     }
 
-	componentDidMount() {
-		document.addEventListener('mouseup', this.handleMouseUp);
-		document.addEventListener('mousemove', this.handleRotate);
-	}
+    componentDidMount() {
+        document.addEventListener('mouseup', this.handleMouseUp);
+        document.addEventListener('mousemove', this.handleRotate);
+    }
 
-	componentWillUnmount() {
-		document.removeEventListener('mouseup', this.handleMouseUp);
-		document.removeEventListener('mousemove', this.handleRotate);
-	}
+    componentWillUnmount() {
+        document.removeEventListener('mouseup', this.handleMouseUp);
+        document.removeEventListener('mousemove', this.handleRotate);
+    }
 
     consume = (e) => {
         e.stopPropagation();
@@ -51,8 +51,8 @@ class Atmosphere extends React.Component {
         this.setState({ angle: this.getMouseAngle(e) + this.state.angleOffset });
     }
 
-	getMouseAngle = (e) => {
-		const bounds = (this.ref ? this.ref.current.getBoundingClientRect() : { left: 0, top: 0 });
+    getMouseAngle = (e) => {
+        const bounds = (this.ref ? this.ref.current.getBoundingClientRect() : { left: 0, top: 0 });
         const centerX = bounds.left + bounds.width/2;
         const centerY = bounds.top + bounds.height/2;
         const mouseX = e.pageX - (document.documentElement.scrollLeft || document.body.scrollLeft);
@@ -61,8 +61,8 @@ class Atmosphere extends React.Component {
         const angleDeg_ = 90 - angleRad * (180.0 / Math.PI);
         const angleDeg = angleDeg_ < 0 ? 360 + angleDeg_ : angleDeg_;
 
-		return angleDeg;
-	}
+        return angleDeg;
+    }
 
     render() {
         return (
