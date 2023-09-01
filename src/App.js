@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Atmosphere from './components/Atmosphere';
 import Sky from './components/Sky';
+import Earth from './components/Earth';
 
 function App() {
     const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -23,6 +24,7 @@ function App() {
         <div className="App" >
             <Sky rotation="-30" />
             <Atmosphere radius="300" x={centerX} y={centerY} />
+            <Earth radius="200" x={centerX} y={centerY} />
         </div>
     );
 }
