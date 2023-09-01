@@ -1,11 +1,28 @@
+import React, { useState, useEffect, useMemo } from 'react';
 import Atmosphere from './components/Atmosphere';
 
 function App() {
-  return (
-    <div className="App">
-      <Atmosphere />
-    </div>
-  );
+    const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+    const handleResize = () => {
+        setSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        });
+        console.log(size);
+    };
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    });
+
+    const centerX = useMemo(() => size?.width / 2, [size]);
+    const centerY = useMemo(() => size?.height / 2, [size]);
+    return (
+        <div className="App" >
+            <Atmosphere radius="300" x={centerX} y={centerY} />
+        </div>
+    );
 }
 
 export default App;

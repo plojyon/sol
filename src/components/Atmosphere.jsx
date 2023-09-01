@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 class Atmosphere extends React.Component {
     /// Circle that can be rotated with the mouse.
@@ -9,18 +8,20 @@ class Atmosphere extends React.Component {
         this.state = {
             rotating: false,
             angle: 0,
-            angleOffset: 0,
+            angleOffset: props.angle || 0,
+            x: props.x || 0,
+            y: props.y || 0,
+            radius: props.radius || 300,
         };
-        this.radius = 600;
         this.ref = React.createRef();
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         document.addEventListener('mouseup', this.handleMouseUp);
         document.addEventListener('mousemove', this.handleRotate);
     }
 
-    componentWillUnmount() {
+    componentWillUnmount = () => {
         document.removeEventListener('mouseup', this.handleMouseUp);
         document.removeEventListener('mousemove', this.handleRotate);
     }
@@ -34,7 +35,10 @@ class Atmosphere extends React.Component {
 
     handleMouseDown = (e) => {
         this.consume(e);
-        this.setState({ rotating: true, angleOffset: this.state.angle - this.getMouseAngle(e) });
+        this.setState({
+            rotating: true,
+            angleOffset: this.state.angle - this.getMouseAngle(e)
+        });
     }
 
     handleMouseUp = (e) => {
@@ -53,8 +57,8 @@ class Atmosphere extends React.Component {
 
     getMouseAngle = (e) => {
         const bounds = (this.ref ? this.ref.current.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
-        const centerX = bounds.left + bounds.width/2;
-        const centerY = bounds.top + bounds.height/2;
+        const centerX = bounds.left + bounds.width / 2;
+        const centerY = bounds.top + bounds.height / 2;
         const mouseX = e.pageX - (document.documentElement.scrollLeft || document.body.scrollLeft);
         const mouseY = e.pageY - (document.documentElement.scrollTop || document.body.scrollTop);
         const angleRad = Math.atan2(centerY - mouseY, mouseX - centerX); //Math.atan2(mouseX - centerX, -(mouseY - centerY));
@@ -65,6 +69,9 @@ class Atmosphere extends React.Component {
     }
 
     render() {
+        const top = this.state.y - this.state.radius;
+        const left = this.state.x - this.state.radius;
+
         return (
             <div className="atmosphere">
                 <div
@@ -72,10 +79,16 @@ class Atmosphere extends React.Component {
                     style={{
                         rotate: `${this.state.angle}deg`,
                         borderRadius: `100%`,
-                        width: `${this.radius * 2}px`,
-                        height: `${this.radius * 2}px`,
+
+                        width: `${this.state.radius * 2}px`,
+                        height: `${this.state.radius * 2}px`,
+                        position: `absolute`,
+                        top: `${top}px`,
+                        left: `${left}px`,
+
                         backgroundImage: 'url("https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg")',
-                        backgroundSize: `${this.radius * 2}px ${this.radius * 2}px`,
+                        backgroundSize: `${this.state.radius * 2}px ${this.state.radius * 2}px`,
+                        backgroundPosition: `center center`,
                     }}
                     onMouseDown={this.handleMouseDown}
                     ref={this.ref}
