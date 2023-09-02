@@ -6,7 +6,7 @@ import Earth from './components/Earth';
 function App() {
     const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
 
-    const handleResize = () => {
+    const handleResize = (e) => {
         setSize({
             width: window.innerWidth,
             height: window.innerHeight,
@@ -23,8 +23,19 @@ function App() {
     return (
         <div className="App" >
             <Sky rotation="-30" />
-            <Atmosphere radius="300" x={centerX} y={centerY} />
-            <Earth radius="200" x={centerX} y={centerY} />
+            <div
+                id="geocenter"
+                style={{
+                    position: "absolute",
+                    top: centerY,
+                    left: centerX,
+                    width: 0,
+                    height: 0,
+                }}
+            >
+                <Atmosphere radius="300" />
+                <Earth radius="200" />
+            </div>
         </div>
     );
 }
