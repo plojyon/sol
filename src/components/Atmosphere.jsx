@@ -13,6 +13,28 @@ class Atmosphere extends React.Component {
             y: props.y || 0,
             radius: props.radius || 300,
         };
+        this.colours = {
+            "day": "#00c1f7",
+            "night": "#0c2b46",
+            "astronomical": "#1e5785",
+            "nautical": "#3285ce",
+            "civil": "#915b6f",
+            "golden": "#d9ca1c",
+        }
+        this.phases = {
+            "Afternoon": "day",
+            "Golden hour PM": "golden",
+            "Civil dusk": "civil",
+            "Nautical dusk": "nautical",
+            "Astronomical dusk": "astronomical",
+            "Full darkness PM": "night",
+            "Full darkness AM": "night",
+            "Astronomical dawn": "astronomical",
+            "Nautical dawn": "nautical",
+            "Civil dawn": "civil",
+            "Golden hour AM": "golden",
+            "Morning": "day",
+        }
         this.ref = React.createRef();
     }
 
@@ -68,10 +90,24 @@ class Atmosphere extends React.Component {
         return angleDeg;
     }
 
+    getPhases = () => {
+        let angle = 0;
+        let phases = [];
+        for (let phase in this.phases) {
+            let colour = this.colours[this.phases[phase]];
+            let phaseAngle = 20; // TODO:
+            phases.push(`${colour} ${angle}deg ${angle + phaseAngle}deg`);
+            angle += phaseAngle;
+        }
+        return phases;
+    }
+
     render() {
         const top = this.state.y - this.state.radius;
         const left = this.state.x - this.state.radius;
 
+        const gradient = `conic-gradient(${this.getPhases().join(', ')})`;
+        console.log(gradient);
         return (
             <div className="atmosphere">
                 <div
@@ -86,7 +122,7 @@ class Atmosphere extends React.Component {
                         top: `${top}px`,
                         left: `${left}px`,
 
-                        backgroundImage: 'url("https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg")',
+                        backgroundImage: gradient,
                         backgroundSize: `${this.state.radius * 2}px ${this.state.radius * 2}px`,
                         backgroundPosition: `center center`,
                     }}
