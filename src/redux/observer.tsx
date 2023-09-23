@@ -1,8 +1,9 @@
-import { ACTIONS, defaultObserverLocation } from '../constants';
+import { AnyAction } from 'redux';
+import { ACTIONS, defaultObservatoryLocation } from '../constants';
 
-const observerReducer = (state = defaultObserverLocation, action) => {
+const observatoryReducer = (state = defaultObservatoryLocation, action: AnyAction) => {
     switch (action.type) {
-        case ACTIONS.OBSERVER_MOVED: {
+        case ACTIONS.OBSERVATORY_MOVED: {
             return {
                 latitude: action.payload.latitude || state.latitude,
                 longitude: action.payload.longitude || state.longitude,
@@ -14,4 +15,4 @@ const observerReducer = (state = defaultObserverLocation, action) => {
     }
 }
 
-export default observerReducer;
+export default observatoryReducer;

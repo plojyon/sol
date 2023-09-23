@@ -1,12 +1,12 @@
-const consume = (e) => {
+import { MouseEvent, MutableRefObject } from "react";
+
+const consume = (e: MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    e.cancelBubble = true;
-    e.returnValue = false;
 }
 
-const getMouseAngle = (e, ref) => {
-    const bounds = (ref ? ref.current.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
+const getMouseAngle = (e: MouseEvent | MouseEvent<HTMLDivElement, MouseEvent>, ref: MutableRefObject<HTMLElement | null>) => {
+    const bounds = ((ref && ref.current) ? ref.current.getBoundingClientRect() : { left: 0, top: 0, width: 0, height: 0 });
     const centerX = bounds.left + bounds.width / 2;
     const centerY = bounds.top + bounds.height / 2;
     const mouseX = e.pageX - (document.documentElement.scrollLeft || document.body.scrollLeft);
