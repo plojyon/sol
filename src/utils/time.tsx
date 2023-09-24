@@ -24,7 +24,6 @@ export const getPhases = (observatoryPosition: TGeographicPosition) => {
     let angle = 0;
     let phases: string[] = [];
     for (let phaseKey in PHASES) {
-        console.log(phaseKey);
         let colour = PHASES[phaseKey as keyof typeof PHASES];
         let phaseAngle = 20; // TODO:
         phases.push(`${colour} ${angle}deg ${angle + phaseAngle}deg`);

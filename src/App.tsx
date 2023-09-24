@@ -9,7 +9,7 @@ import Satellite from './components/Satellite';
 function App() {
     const dispatch = useDispatch();
 
-    const handleResize = (e: Event) => {
+    const handleResize = () => {
         dispatch({
             type: ACTIONS.GEOCENTER_MOVED, payload: {
                 left: window.innerWidth / 2,

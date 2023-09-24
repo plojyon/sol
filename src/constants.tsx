@@ -58,5 +58,8 @@ export const EARTH_COLOUR = "#56b906";
 export const EARTH_RADIUS = 200;
 export const ATMOSPHERE_RADIUS = 300;
 export const WEATHER_ALTITUDE = 50;
-export const STAR_COUNT = 30;
+export const STAR_COUNT = 35;
 export const STAR_RADIUS = 10;
+export const STAR_ALTITUDE = 200;
+
+export const LIVE_ROTATE = false;

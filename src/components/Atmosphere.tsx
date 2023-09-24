@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { consume, getMouseAngle } from '../utils/mouse';
 import { getPhases } from '../utils/time';
 import { selectObserverPosition, selectSolarHour } from '../reducers';
-import { ACTIONS, ATMOSPHERE_RADIUS } from '../constants';
+import { ACTIONS, ATMOSPHERE_RADIUS, LIVE_ROTATE } from '../constants';
 
 const Atmosphere = () => {
     /**
@@ -29,13 +29,22 @@ const Atmosphere = () => {
     const handleMouseUp = (e: any) => {
         consume(e);
         setRotating(false);
-        setSolarHour(angle);
+        if (LIVE_ROTATE) { }
+        else {
+            setSolarHour(angle);
+        }
     }
 
     const handleRotate = (e: any) => {
         consume(e);
         if (!rotating) return;
-        setAngle(getMouseAngle(e, ref) - angleOffset + solarHour);
+        if (LIVE_ROTATE) {
+            setSolarHour(getMouseAngle(e, ref));
+            setAngle(solarHour);
+        }
+        else {
+            setAngle(getMouseAngle(e, ref) - angleOffset + solarHour);
+        }
     }
 
     const observerPosition = useSelector(selectObserverPosition);
@@ -68,6 +77,7 @@ const Atmosphere = () => {
                     backgroundImage: gradient,
                     backgroundSize: `${ATMOSPHERE_RADIUS * 2}px ${ATMOSPHERE_RADIUS * 2}px`,
                     backgroundPosition: `center center`,
+                    opacity: 0.9,
                 }}
                 onMouseDown={handleMouseDown}
                 ref={ref}

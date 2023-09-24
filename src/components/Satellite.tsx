@@ -2,9 +2,12 @@ import React, { ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { selectGeocenter } from "../reducers";
 
-export interface TSatelliteProps {
+export interface TSatellite {
     angle: number,
     altitude: number,
+}
+
+interface TSatelliteProps extends TSatellite {
     children?: ReactNode,
 }
 
