@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectSolarHour } from '../reducers';
+import Geocentered from './Geocentered';
 import { generateConstellation } from './Star';
 
 // interface TCloud extends TSatellite {
@@ -46,7 +47,9 @@ const Sky = () => {
                     transform: `rotate(${solarHour}deg)`,
                 }}
             />
-            {stars}
+            <Geocentered>
+                {stars}
+            </Geocentered>
         </div >
     );
 }

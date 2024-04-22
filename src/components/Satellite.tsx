@@ -20,7 +20,7 @@ const Satellite = (props: TSatelliteProps) => {
     const orbitAngle = solarHour + angle;
     return (
         <div
-            className="geocentered_satellite"
+            className="satellite"
             style={{
                 position: "absolute",
                 top: `${altitude}px`,
