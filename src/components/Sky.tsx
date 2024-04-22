@@ -27,7 +27,7 @@ const Sky = () => {
     const [stars] = useState(generateConstellation());
     const solarHour = useSelector(selectSolarHour);
 
-    const overhang = Math.ceil(50 * Math.sqrt(2));
+    const overhang = Math.ceil(100 * Math.sqrt(2));
     const size = 100 + 2 * overhang;
     const center = size / 2;
 
