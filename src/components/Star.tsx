@@ -34,7 +34,7 @@ type TStarProps = {
 
 const Star = (props: TStarProps) => {
     return (
-        <Satellite angle={props.angle - 90} altitude={props.altitude}>
+        <Satellite angle={props.angle} altitude={props.altitude}>
             <div style={{
                 width: `${props.size}px`,
                 height: `${props.size}px`,

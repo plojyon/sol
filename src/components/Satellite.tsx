@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { selectSolarHour } from "../reducers";
+import Geocentered from "./Geocentered";
 
 export interface TSatellite {
     angle: number,
@@ -19,18 +20,20 @@ const Satellite = (props: TSatelliteProps) => {
     const solarHour = useSelector(selectSolarHour);
     const orbitAngle = solarHour + angle;
     return (
-        <div
-            className="satellite"
-            style={{
-                position: "absolute",
-                top: `${altitude}px`,
-                rotate: `${orbitAngle}deg`,
-                transformOrigin: `0px ${-altitude}px 0px`,
-                transition: "ease 1s rotate"
-            }}
-        >
-            {children}
-        </div>
+        <Geocentered>
+            <div
+                className="satellite"
+                style={{
+                    position: "absolute",
+                    top: `${altitude}px`,
+                    rotate: `${orbitAngle}deg`,
+                    transformOrigin: `0px ${-altitude}px 0px`,
+                    transition: "ease 1s rotate"
+                }}
+            >
+                {children}
+            </div>
+        </Geocentered>
     );
 };
 

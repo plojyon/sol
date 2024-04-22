@@ -25,7 +25,6 @@ import { generateConstellation } from './Star';
 const Sky = () => {
     // const [clouds] = useState(condenseClouds());
     const [stars] = useState(generateConstellation());
-    // const [sun] = useState(makeSun());
     const solarHour = useSelector(selectSolarHour);
 
     const overhang = Math.ceil(50 * Math.sqrt(2));
@@ -47,9 +46,7 @@ const Sky = () => {
                     transform: `rotate(${solarHour}deg)`,
                 }}
             />
-            <Geocentered>
-                {stars}
-            </Geocentered>
+            {stars}
         </div >
     );
 }
