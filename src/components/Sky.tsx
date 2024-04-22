@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { SUN_RADIUS } from '../constants';
 import { selectSolarHour } from '../reducers';
 import Geocentered from './Geocentered';
 import { generateConstellation } from './Star';
+import Sun from './Sun';
 
 // interface TCloud extends TSatellite {
 //     size: number,
@@ -34,7 +36,7 @@ const Sky = () => {
     return (
         <div className="sky">
             <div
-                className="gradient__descent"
+                className="skybox"
                 style={{
                     background: `linear-gradient(0deg, #0000aa 10%, #00eeff 90%)`,
                     width: `${size}vw`,
@@ -47,6 +49,7 @@ const Sky = () => {
                 }}
             />
             {stars}
+            <Sun />
         </div >
     );
 }
