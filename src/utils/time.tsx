@@ -21,11 +21,12 @@ const getSunsetTime = (latitude: number, date: Date) => {
 }
 
 export const getPhases = (observatoryPosition: TGeographicPosition) => {
+    // TODO: make this function work
     let angle = 0;
     let phases: string[] = [];
     for (let phaseKey in PHASES) {
         let colour = PHASES[phaseKey as keyof typeof PHASES];
-        let phaseAngle = 20; // TODO:
+        let phaseAngle = 360 / Object.keys(PHASES).length;
         phases.push(`${colour} ${angle}deg ${angle + phaseAngle}deg`);
         angle += phaseAngle;
     }

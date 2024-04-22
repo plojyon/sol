@@ -17,7 +17,8 @@ const phaseColours = {
     "nautical": "#3285ce",
     "civil": "#915b6f",
     "golden": "#d9ca1c",
-    "debug": "lime"
+    "debug": "lime",
+    "debug2": "LimeGreen",
 };
 // export const PHASES = {
 //     "Afternoon": phaseColours["day"],
@@ -52,6 +53,7 @@ export const PHASES = {
     "F": phaseColours["day"],
     "G": phaseColours["day"],
     "H": phaseColours["day"],
+    "I": phaseColours["debug2"],
 }
 
 export const EARTH_COLOUR = "#56b906";

@@ -3,11 +3,13 @@ import Atmosphere from './components/Atmosphere';
 import Sky from './components/Sky';
 import Earth from './components/Earth';
 import { ACTIONS } from './constants';
-import { useDispatch } from 'react-redux';
-import Satellite from './components/Satellite';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectGeocenter } from './reducers';
 
 function App() {
     const dispatch = useDispatch();
+
+    const geocenter = useSelector(selectGeocenter);
 
     const handleResize = () => {
         dispatch({
@@ -26,10 +28,14 @@ function App() {
     return (
         <div className="App" >
             <Sky />
-            <Satellite angle={0} altitude={0}>
+            <div style={{
+                position: "absolute",
+                top: geocenter.top,
+                left: geocenter.left,
+            }}>
                 <Atmosphere />
                 <Earth />
-            </Satellite>
+            </div>
         </div>
     );
 }
