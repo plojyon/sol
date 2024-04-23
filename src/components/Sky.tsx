@@ -1,31 +1,23 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { SUN_RADIUS } from '../constants';
+import { CLOUD_ALTITUDE, SUN_RADIUS } from '../constants';
 import { selectSolarHour } from '../reducers';
+import Cloud from './Cloud';
 import Geocentered from './Geocentered';
 import { generateConstellation } from './Star';
 import Sun from './Sun';
 
-// interface TCloud extends TSatellite {
-//     size: number,
-//     opacity: number,
-// }
-
-// const getClouds = () => {
-//     const clouds: TCloud[] = [];
-//     for (let i = 0; i < 9; i++) {
-//         clouds.push({
-//             size: randNormal(20, 5),
-//             opacity: Math.random() * 100,
-//             angle: Math.random() * 360,
-//             altitude: randNormal(WEATHER_ALTITUDE, 10),
-//         });
-//     }
-//     return clouds;
-// }
+const getClouds = () => {
+    const clouds = [];
+    for (let i = 0; i < 6; i++) {
+        const angle = Math.random() * 360;
+        clouds.push(<Cloud altitude={CLOUD_ALTITUDE} angle={angle} />);
+    }
+    return clouds;
+}
 
 const Sky = () => {
-    // const [clouds] = useState(condenseClouds());
+    const [clouds] = useState(getClouds());
     const [stars] = useState(generateConstellation());
     const solarHour = useSelector(selectSolarHour);
 
@@ -50,6 +42,7 @@ const Sky = () => {
             />
             {stars}
             <Sun />
+            {clouds}
         </div >
     );
 }
