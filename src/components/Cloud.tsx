@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { CLOUD_ALTITUDE } from '../constants';
+import { logisticSigmoid, map } from '../utils/math';
 import Satellite, { TSatellite } from './Satellite';
+
+const cloudOpacity = (angle: number) => {
+    const x = map(Math.abs(angle - 180), 0, 180, -1, 1);
+    const y = logisticSigmoid(x * -2.5); // TODO: make this factor a function of nighttime duration
+    return map(y, 0, 1, 0.05, 0.9);
+}
 
 interface TCloudProps extends TSatellite { }
 
 const Cloud = (props: TCloudProps) => {
     const images = [
-        'cloud-1.png',
-        'cloud-2.png',
-        'cloud-3.png',
+        'cloud_1.png',
+        'cloud_2.png',
+        'cloud_3.png',
     ];
     const [currentImage, setCurrentImage] = useState('');
 
@@ -23,6 +30,7 @@ const Cloud = (props: TCloudProps) => {
                 transform: "scaleY(-1)",  // hee hee
                 position: "absolute",
                 left: "-30px",
+                opacity: cloudOpacity(props.angle),
             }} />
         </Satellite>
     );
