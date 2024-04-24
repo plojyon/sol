@@ -1,5 +1,6 @@
 export const ACTIONS = {
     SOLAR_HOUR_CHANGED: 'skySpun',
+    SELECTED_HOUR_CHANGED: 'skyIsSpinning',
     OBSERVATORY_MOVED: 'observatoryMoved',
     GEOCENTER_MOVED: 'earthMoved',
 };
@@ -65,5 +66,7 @@ export const CLOUD_ALTITUDE = 370;
 export const STAR_COUNT = 35;
 export const STAR_RADIUS = 10;
 export const STAR_ALTITUDE = 200;
+
+export const TIME_POINTER_HEIGHT = 9;
 
 export const LIVE_ROTATE = false;

@@ -32,3 +32,24 @@ export const getPhases = (observatoryPosition: TGeographicPosition) => {
     }
     return phases;
 }
+
+
+interface TTime {
+    hour: number,
+    minute: number,
+}
+
+export const hourToAngle = (time: TTime) => {
+    return Math.round((time.hour + time.minute / 60) / 24 * 360);
+}
+
+export const angleToHour = (angle: number) => {
+    const time = ((180 - angle + 3600) % 360) / 360 * 24;
+    const hour = Math.floor(time);
+    const minute = Math.floor((time - hour) * 60);
+    return { "hour": hour, "minute": minute } as TTime;
+}
+
+export const timeToString = (time: TTime) => {
+    return `${time.hour.toString().padStart(2, '0')}:${time.minute.toString().padStart(2, '0')}`;
+}

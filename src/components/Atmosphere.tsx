@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { consume, getMouseAngle } from '../utils/mouse';
 import { getPhases } from '../utils/time';
-import { selectObserverPosition, selectSolarHour } from '../reducers';
+import { selectObserverPosition, selectSelectedAngle, selectSolarHour } from '../reducers';
 import { ACTIONS, ATMOSPHERE_RADIUS, LIVE_ROTATE } from '../constants';
 
 const Atmosphere = () => {
@@ -16,6 +16,7 @@ const Atmosphere = () => {
     const [rotating, setRotating] = useState(false);
     const solarHour = useSelector(selectSolarHour); // angle used in redux
     const setSolarHour = (angle: number) => dispatch({ type: ACTIONS.SOLAR_HOUR_CHANGED, payload: angle });
+    const setSelectedAngle = (angle: number) => dispatch({ type: ACTIONS.SELECTED_HOUR_CHANGED, payload: angle });
     const [angle, setAngle] = useState(solarHour); // current display angle
     const [angleOffset, setAngleOffset] = useState(0); // angle at which dragging started
     const ref = useRef(null);
@@ -43,7 +44,9 @@ const Atmosphere = () => {
             setAngle(solarHour);
         }
         else {
-            setAngle(getMouseAngle(e, ref) - angleOffset + solarHour);
+            const newAngle = getMouseAngle(e, ref) - angleOffset + solarHour;
+            setSelectedAngle(newAngle);
+            setAngle(newAngle);
         }
     }
 

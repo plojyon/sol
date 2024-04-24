@@ -5,6 +5,7 @@ import Earth from './components/Earth';
 import { ACTIONS } from './constants';
 import { useDispatch } from 'react-redux';
 import Geocentered from './components/Geocentered';
+import Clock from './components/Clock';
 
 function App() {
     const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
             <Geocentered>
                 <Atmosphere />
                 <Earth />
+                <Clock />
             </Geocentered>
         </div>
     );
