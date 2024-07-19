@@ -113,8 +113,10 @@ const Atmosphere = () => {
             <PhaseName text="Golden hour PM" angle={angle + 360 / 19 * 4.5} />
             <PhaseName text="Civil dusk" angle={angle + 360 / 19 * 5.5} />
             <PhaseName text="Nautical dusk" angle={angle + 360 / 19 * 6.5} />
-            <PhaseName text="Night (PM)" angle={angle + 360 / 19 * 7.5} />
-            <PhaseName text="Night (AM)" angle={angle + 360 / 19 * (-7.5)} />
+            <PhaseName text="Astronomical dusk" angle={angle + 360 / 19 * 7.5} />
+            <PhaseName text="Night (PM)" angle={angle + 360 / 19 * 8.5} />
+            <PhaseName text="Night (AM)" angle={angle + 360 / 19 * (-8.5)} />
+            <PhaseName text="Astronomical dawn" angle={angle + 360 / 19 * (-7.5)} />
             <PhaseName text="Nautical dawn" angle={angle + 360 / 19 * (-6.5)} />
             <PhaseName text="Civil dawn" angle={angle + 360 / 19 * (-5.5)} />
             <PhaseName text="Golden hour AM" angle={angle + 360 / 19 * (-4.5)} />
