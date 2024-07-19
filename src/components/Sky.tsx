@@ -11,7 +11,7 @@ const getClouds = () => {
     const clouds = [];
     for (let i = 0; i < 6; i++) {
         const angle = Math.random() * 360;
-        clouds.push(<Cloud altitude={CLOUD_ALTITUDE} angle={angle} />);
+        clouds.push(<Cloud altitude={CLOUD_ALTITUDE} angle={angle} key={i} />);
     }
     return clouds;
 }
