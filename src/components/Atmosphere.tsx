@@ -15,6 +15,7 @@ const PhaseName = ({ text, angle }: { text: string, angle: number }) => {
         fontSize: `${PHASE_TEXT_SIZE}px`,
         transform: `rotate(${angle - 90}deg)`,
         transformOrigin: `${-EARTH_RADIUS - PHASE_TEXT_SIZE}px 0`,
+        pointerEvents: "none",
     }}>
         <div style={{
             position: "absolute" as "absolute",
