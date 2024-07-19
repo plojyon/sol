@@ -61,7 +61,7 @@ export const EARTH_COLOUR = "#56b906";
 export const EARTH_RADIUS = 200;
 export const SUN_RADIUS = 25;
 export const SUN_ALTITUDE = 400;
-export const ATMOSPHERE_RADIUS = 300;
+export const ATMOSPHERE_RADIUS = 350;
 export const CLOUD_ALTITUDE = 370;
 export const STAR_COUNT = 35;
 export const STAR_RADIUS = 10;
@@ -70,3 +70,6 @@ export const STAR_ALTITUDE = 200;
 export const TIME_POINTER_HEIGHT = 9;
 
 export const LIVE_ROTATE = false;
+
+export const EVENT_TEXT_SIZE = 16;
+export const PHASE_TEXT_SIZE = 16;

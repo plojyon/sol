@@ -3,10 +3,28 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { consume, getMouseAngle } from '../utils/mouse';
 import { getPhases } from '../utils/time';
-import { selectObserverPosition, selectSolarHour, selectGeocenter } from '../reducers';
-import { ACTIONS, ATMOSPHERE_RADIUS, LIVE_ROTATE, EARTH_RADIUS } from '../constants';
+import { selectObserverPosition, selectSolarHour } from '../reducers';
+import { ACTIONS, ATMOSPHERE_RADIUS, LIVE_ROTATE, EARTH_RADIUS, PHASE_TEXT_SIZE, EVENT_TEXT_SIZE } from '../constants';
 import OrbitText from './OrbitText';
 
+const PhaseName = ({ text, angle }: { text: string, angle: number }) => {
+    return (<div style={{
+        position: "absolute" as "absolute",
+        left: `${EARTH_RADIUS + PHASE_TEXT_SIZE}px`,
+        color: "white",
+        fontSize: `${PHASE_TEXT_SIZE}px`,
+        transform: `rotate(${angle - 90}deg)`,
+        transformOrigin: `${-EARTH_RADIUS - PHASE_TEXT_SIZE}px 0`,
+    }}>
+        <div style={{
+            position: "absolute" as "absolute",
+            top: `${-PHASE_TEXT_SIZE / 2 - 2}px`,
+            width: `1000px`,
+        }}>
+            {text}
+        </div>
+    </div >);
+}
 
 const Atmosphere = () => {
     /**
@@ -22,10 +40,6 @@ const Atmosphere = () => {
     const [angle, setAngle] = useState(solarHour); // current display angle
     const [angleOffset, setAngleOffset] = useState(0); // angle at which dragging started
     const ref = useRef(null);
-
-    const textSize = 16;
-    const textRadius = ATMOSPHERE_RADIUS - textSize;
-    const atmosphereThickness = ATMOSPHERE_RADIUS - EARTH_RADIUS;
 
     const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
         consume(e);
@@ -91,10 +105,20 @@ const Atmosphere = () => {
                 onMouseDown={handleMouseDown}
                 ref={ref}
             ></div>
-            <OrbitText text="Solar noon" curvature={1} fontSize={textSize} radius={textRadius} angle={angle - 90} />
-            <OrbitText text="Solar midnight" curvature={1} fontSize={textSize} radius={textRadius} angle={angle + 90} />
-            <OrbitText text="Sunset" curvature={1} fontSize={textSize} radius={textRadius} angle={angle - 90 + 360 / 19 * 5} />
-            <OrbitText text="Sunrise" curvature={1} fontSize={textSize} radius={textRadius} angle={angle - 90 - 360 / 19 * 5} />
+            <OrbitText text="Solar noon" curvature={1} fontSize={EVENT_TEXT_SIZE} radius={ATMOSPHERE_RADIUS - EVENT_TEXT_SIZE} angle={angle - 90} />
+            <OrbitText text="Solar midnight" curvature={1} fontSize={EVENT_TEXT_SIZE} radius={ATMOSPHERE_RADIUS - EVENT_TEXT_SIZE} angle={angle + 90} />
+            <OrbitText text="Sunset" curvature={1} fontSize={EVENT_TEXT_SIZE} radius={ATMOSPHERE_RADIUS - EVENT_TEXT_SIZE} angle={angle - 90 + 360 / 19 * 5} />
+            <OrbitText text="Sunrise" curvature={1} fontSize={EVENT_TEXT_SIZE} radius={ATMOSPHERE_RADIUS - EVENT_TEXT_SIZE} angle={angle - 90 - 360 / 19 * 5} />
+            <PhaseName text="Afternoon" angle={angle + 360 / 19 * 2.5} />
+            <PhaseName text="Golden hour PM" angle={angle + 360 / 19 * 4.5} />
+            <PhaseName text="Civil dusk" angle={angle + 360 / 19 * 5.5} />
+            <PhaseName text="Nautical dusk" angle={angle + 360 / 19 * 6.5} />
+            <PhaseName text="Night (PM)" angle={angle + 360 / 19 * 7.5} />
+            <PhaseName text="Night (AM)" angle={angle + 360 / 19 * (-7.5)} />
+            <PhaseName text="Nautical dawn" angle={angle + 360 / 19 * (-6.5)} />
+            <PhaseName text="Civil dawn" angle={angle + 360 / 19 * (-5.5)} />
+            <PhaseName text="Golden hour AM" angle={angle + 360 / 19 * (-4.5)} />
+            <PhaseName text="Morning" angle={angle + 360 / 19 * (-2.5)} />
         </div>
     );
 }
