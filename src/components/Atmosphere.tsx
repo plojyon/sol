@@ -3,8 +3,10 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { consume, getMouseAngle } from '../utils/mouse';
 import { getPhases } from '../utils/time';
-import { selectObserverPosition, selectSelectedAngle, selectSolarHour } from '../reducers';
-import { ACTIONS, ATMOSPHERE_RADIUS, LIVE_ROTATE } from '../constants';
+import { selectObserverPosition, selectSolarHour, selectGeocenter } from '../reducers';
+import { ACTIONS, ATMOSPHERE_RADIUS, LIVE_ROTATE, EARTH_RADIUS } from '../constants';
+import OrbitText from './OrbitText';
+
 
 const Atmosphere = () => {
     /**
@@ -20,6 +22,10 @@ const Atmosphere = () => {
     const [angle, setAngle] = useState(solarHour); // current display angle
     const [angleOffset, setAngleOffset] = useState(0); // angle at which dragging started
     const ref = useRef(null);
+
+    const textSize = 16;
+    const textRadius = ATMOSPHERE_RADIUS - textSize;
+    const atmosphereThickness = ATMOSPHERE_RADIUS - EARTH_RADIUS;
 
     const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
         consume(e);
@@ -85,6 +91,10 @@ const Atmosphere = () => {
                 onMouseDown={handleMouseDown}
                 ref={ref}
             ></div>
+            <OrbitText text="Solar noon" curvature={1} fontSize={textSize} radius={textRadius} angle={angle - 90} />
+            <OrbitText text="Solar midnight" curvature={1} fontSize={textSize} radius={textRadius} angle={angle + 90} />
+            <OrbitText text="Sunset" curvature={1} fontSize={textSize} radius={textRadius} angle={angle - 90 + 360 / 19 * 5} />
+            <OrbitText text="Sunrise" curvature={1} fontSize={textSize} radius={textRadius} angle={angle - 90 - 360 / 19 * 5} />
         </div>
     );
 }
