@@ -33,7 +33,8 @@ const Clock = () => {
                 {timezone}
             </div>
             <img src={require('../images/pointer.png')} alt="pointer" style={{
-                height: `${TIME_POINTER_HEIGHT}px`
+                height: `${TIME_POINTER_HEIGHT}px`,
+                transform: "translateX(-50%)",
             }} />
         </div>
     );
