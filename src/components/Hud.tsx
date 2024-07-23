@@ -37,6 +37,7 @@ const Hud = () => {
                     left: 0;
                     color: white;
                     font-weight: bold;
+                    font-family: helvetica;
                     pointer-events: none;
                 }
                 .date {

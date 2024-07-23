@@ -2,8 +2,11 @@ import React from 'react';
 import { EARTH_COLOUR, EARTH_RADIUS } from '../constants';
 
 const Earth = () => {
+    const handleEarthClick = () => {
+        alert("This is a map picker (pretend)");
+    }
     return (
-        <div className="earth">
+        <div className="earth" onClick={handleEarthClick}>
             <div
                 className="balkica"
                 style={{

@@ -68,8 +68,10 @@ export const STAR_RADIUS = 10;
 export const STAR_ALTITUDE = 200;
 
 export const TIME_POINTER_HEIGHT = 9;
+export const OBSERVATORY_PIN_HEIGHT = 30;
 
 export const LIVE_ROTATE = false;
 
 export const EVENT_TEXT_SIZE = 16;
 export const PHASE_TEXT_SIZE = 16;
+export const OBSERVATORY_TEXT_SIZE = 25;
