@@ -18,8 +18,8 @@ const phaseColours = {
     "nautical": "#3285ce",
     "civil": "#915b6f",
     "golden": "#d9ca1c",
-    "debug": "lime",
-    "debug2": "LimeGreen",
+    "debug": "#00c1f7",
+    "debug2": "#00c1f7",
 };
 // export const PHASES = {
 //     "Afternoon": phaseColours["day"],
