@@ -6,10 +6,12 @@ const Earth = () => {
         alert("This is a map picker (pretend)");
     }
     return (
-        <div className="earth" onClick={handleEarthClick}>
+        <div className="earth">
             <div
                 className="balkica"
+                onClick={handleEarthClick}
                 style={{
+                    cursor: 'pointer',
                     borderRadius: '100%',
                     width: `${EARTH_RADIUS * 2}px`,
                     height: `${EARTH_RADIUS * 2}px`,
